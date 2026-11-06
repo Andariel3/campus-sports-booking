@@ -1,0 +1,28 @@
+# Secrete si configurari locale
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node / Vite
+node_modules/
+dist/
+*.local
+coverage/
+playwright-report/
+test-results/
+
+# Editoare si sistem de operare
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

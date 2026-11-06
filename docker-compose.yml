@@ -1,5 +1,3 @@
-# Deocamdata porneste doar baza de date.
-# Serviciile frontend si backend se adauga dupa ce exista Dockerfile-urile lor.
 services:
   db:
     image: postgres:16

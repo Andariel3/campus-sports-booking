@@ -1,0 +1,17 @@
+# Deocamdata porneste doar baza de date.
+# Serviciile frontend si backend se adauga dupa ce exista Dockerfile-urile lor.
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-campus_sports_booking}
+      POSTGRES_USER: ${POSTGRES_USER:-campus}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Setati POSTGRES_PASSWORD in .env}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

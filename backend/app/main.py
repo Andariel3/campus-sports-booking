@@ -1,12 +1,14 @@
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
-from app.routers import facilities
+from app.core.errors import register_error_handlers
+from app.routers import resources
 
 settings = get_settings()
 
 app = FastAPI(title="Campus Sports Booking API", version="0.1.0")
+register_error_handlers(app)
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,9 +17,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(facilities.router)
+# Base URL from the API contract on Confluence: http://localhost:8000/api/v1
+api = APIRouter(prefix="/api/v1")
+api.include_router(resources.router)
 
 
-@app.get("/api/health", tags=["health"])
+@api.get("/health", tags=["health"])
 def health() -> dict[str, str]:
     return {"status": "ok"}
+
+
+app.include_router(api)

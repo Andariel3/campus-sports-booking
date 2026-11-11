@@ -3,7 +3,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models.resource import Resource, ResourceType
-from app.schemas.resource import ResourceCreate, ResourceUpdate, _check_open_before_close
+from app.schemas.resource import ResourceCreate, ResourceUpdate, check_open_before_close
 
 
 class ResourceNotFoundError(Exception):
@@ -44,7 +44,7 @@ def update_resource(db: Session, resource_id: int, data: ResourceUpdate) -> Reso
     resource = get_resource(db, resource_id)
     changes = data.model_dump(exclude_unset=True)
     # the new hours may be checked against the ones already saved
-    _check_open_before_close(
+    check_open_before_close(
         changes.get("open_hour", resource.open_hour),
         changes.get("close_hour", resource.close_hour),
     )

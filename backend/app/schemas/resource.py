@@ -28,7 +28,7 @@ class ResourceCreate(CamelModel):
 
     @model_validator(mode="after")
     def check_hours(self) -> Self:
-        _check_open_before_close(self.open_hour, self.close_hour)
+        check_open_before_close(self.open_hour, self.close_hour)
         return self
 
 
@@ -45,7 +45,7 @@ class ResourceUpdate(CamelModel):
 
     @model_validator(mode="after")
     def check_hours(self) -> Self:
-        _check_open_before_close(self.open_hour, self.close_hour)
+        check_open_before_close(self.open_hour, self.close_hour)
         return self
 
 
@@ -55,7 +55,7 @@ class ResourceRead(ResourceCreate):
     id: int
 
 
-def _check_open_before_close(open_hour: str | None, close_hour: str | None) -> None:
+def check_open_before_close(open_hour: str | None, close_hour: str | None) -> None:
     # "HH:MM" strings compare correctly as text
     if open_hour and close_hour and open_hour >= close_hour:
         raise ValueError("openHour must be before closeHour")

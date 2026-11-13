@@ -1,6 +1,6 @@
 # Cum lucram in repo
 
-Regulile de mai jos sunt pentru toata echipa (backend, frontend, baza de date).
+Regulile de mai jos sunt pentru toata echipa (backend, baza de date).
 
 ## Pe scurt
 
@@ -84,9 +84,6 @@ Regulile de mai jos sunt pentru toata echipa (backend, frontend, baza de date).
   ruff format .
   pytest
   ```
-
-- **frontend (TypeScript/React):** stilul ales de echipa de frontend, trecut si in Confluence la
-  "Coding style frontend"
 
 ## Ce nu urcam in repo
 

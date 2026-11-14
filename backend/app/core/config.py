@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     cors_origins: list[str] = ["http://localhost:5173"]
 
     # in .env se pune un secret adevarat, valoarea de aici e doar pentru dezvoltare
-    jwt_secret: str = "dev-secret-schimba-ma"
+    jwt_secret: str = "dev-secret-doar-pentru-dezvoltare-locala"
     jwt_algorithm: str = "HS256"
     access_token_minutes: int = 60
 

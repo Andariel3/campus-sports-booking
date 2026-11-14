@@ -12,7 +12,9 @@ from sqlalchemy import (
     Integer,
     Numeric,
     func,
+    text,
 )
+from sqlalchemy.dialects.postgresql import ExcludeConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
@@ -33,6 +35,15 @@ class Reservation(Base):
         CheckConstraint("start_time < end_time", name="check_booking_dates"),
         Index("idx_bookings_user_date", "user_id", "start_time"),
         Index("idx_bookings_resource_date", "resource_id", "start_time"),
+        # doua rezervari active nu se pot suprapune pe aceeasi resursa.
+        # e doar pe postgres (are nevoie de extensia btree_gist), in testele cu sqlite nu exista
+        ExcludeConstraint(
+            ("resource_id", "="),
+            (text("tstzrange(start_time, end_time)"), "&&"),
+            name="prevent_overlapping_bookings",
+            using="gist",
+            where=text("status != 'Cancelled'"),
+        ).ddl_if(dialect="postgresql"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)

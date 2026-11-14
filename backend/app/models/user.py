@@ -28,6 +28,4 @@ class User(Base):
     )
     # contul e blocat pana la data asta (dupa 2 neprezentari)
     blocked_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

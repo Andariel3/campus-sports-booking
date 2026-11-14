@@ -10,9 +10,7 @@ class MaintenanceBlock(Base):
     """Interval in care o resursa nu se poate rezerva (mentenanta)."""
 
     __tablename__ = "maintenance_blocks"
-    __table_args__ = (
-        CheckConstraint("start_time < end_time", name="check_maintenance_dates"),
-    )
+    __table_args__ = (CheckConstraint("start_time < end_time", name="check_maintenance_dates"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     resource_id: Mapped[int] = mapped_column(ForeignKey("resources.id", ondelete="CASCADE"))

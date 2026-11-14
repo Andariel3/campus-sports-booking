@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
 from app.core.errors import register_error_handlers
-from app.routers import resources
+from app.routers import auth, resources, users
 
 settings = get_settings()
 
@@ -19,6 +19,8 @@ app.add_middleware(
 
 # Base URL from the API contract on Confluence: http://localhost:8000/api/v1
 api = APIRouter(prefix="/api/v1")
+api.include_router(auth.router)
+api.include_router(users.router)
 api.include_router(resources.router)
 
 
